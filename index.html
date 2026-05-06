@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sangría Malportada · Estudio Cualitativo · SL Consultores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf6f0;
+    --bg-warm: #f1ebde;
+    --bg-dark: #15100e;
+    --bg-soft: #fdf2ed;
+    --surface: #ffffff;
+    --red: #d61f2a;
+    --red-deep: #a8141d;
+    --red-soft: #f5d2d4;
+    --red-bg: #fbe8ea;
+    --ink: #14110f;
+    --ink-body: #2b2622;
+    --ink-muted: #6e6862;
+    --line: #e3dccc;
+    --line-strong: #c8c0ad;
+    --gold: #c79a3a;
+    --nse-bajo: #b56c2c;
+    --nse-bajo-soft: #f0d9bf;
+    --nse-bajo-bg: #fbeedc;
+    --nse-alto: #2f4858;
+    --nse-alto-soft: #c9d4dc;
+    --nse-alto-bg: #e9eef2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink-body);
+    line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Fraunces', Georgia, serif;
+    color: var(--ink);
+    font-weight: 500;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+  }
+
+  h1 { font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 400; }
+  h2 { font-size: clamp(1.65rem, 3.2vw, 2.5rem); margin-bottom: 0.5em; }
+  h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); margin-bottom: 0.5em; font-weight: 500; }
+  h4 { font-size: 1.125rem; font-weight: 600; }
+
+  p { margin-bottom: 1em; }
+  p.lead { font-size: 1.1rem; color: var(--ink-muted); line-height: 1.6; }
+
+  a { color: var(--red); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Top nav */
+  .topnav {
+    position: sticky;
+    top: 0;
+    background: rgba(250, 246, 240, 0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    z-index: 100;
+    padding: 1rem 0;
+  }
+  .topnav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+  .nav-brand {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .nav-brand strong { color: var(--red); font-weight: 500; }
+  .nav-brand small {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .topnav ul {
+    display: flex;
+    gap: 1.4rem;
+    list-style: none;
+    font-size: 0.84rem;
+    flex-wrap: wrap;
+  }
+  .topnav ul a {
+    color: var(--ink-muted);
+    transition: color 0.15s;
+  }
+  .topnav ul a:hover { color: var(--red); text-decoration: none; }
+
+  /* Layout */
+  section { padding: 5rem 0; }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .container-narrow {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 5rem 0 5rem;
+    background:
+      radial-gradient(ellipse 800px 400px at 80% 0%, rgba(214, 31, 42, 0.10), transparent 60%),
+      radial-gradient(ellipse 600px 500px at 10% 100%, rgba(199, 154, 58, 0.10), transparent 60%),
+      var(--bg);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--red);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    background: var(--red-soft);
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    margin-bottom: 1.25rem;
+    max-width: 24ch;
+  }
+  .hero h1 .accent { color: var(--red); font-style: italic; font-weight: 400; }
+
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--line-strong);
+  }
+  .hero-meta dt {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-muted);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  .hero-meta dd {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.4rem;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  /* Section title */
+  .section-title {
+    margin-bottom: 3rem;
+    max-width: 800px;
+  }
+  .section-title .eyebrow { background: transparent; padding-left: 0; color: var(--ink-muted); }
+  .section-title h2 { margin-top: 1rem; }
+  .section-title p { margin-top: 1rem; color: var(--ink-muted); font-size: 1.05rem; }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+  .card-list { list-style: none; }
+  .card-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.95rem;
+    display: flex;
+    gap: 0.75rem;
+  }
+  .card-list li:last-child { border-bottom: none; }
+  .card-list li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    margin-top: 0.55rem;
+    border-radius: 50%;
+    background: var(--red);
+  }
+
+  /* Methodology cards */
+  .meth-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .meth-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .meth-card .meth-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2.5rem;
+    color: var(--red);
+    font-weight: 400;
+    line-height: 1;
+    display: block;
+  }
+  .meth-card h5 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+  }
+  .meth-card p {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* NSE chips */
+  .nse-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .nse-card {
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
+    border: 1px solid var(--line);
+  }
+  .nse-card.bajo {
+    background: var(--nse-bajo-bg);
+    border-color: var(--nse-bajo-soft);
+  }
+  .nse-card.alto {
+    background: var(--nse-alto-bg);
+    border-color: var(--nse-alto-soft);
+  }
+  .nse-card .nse-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 100px;
+    display: inline-block;
+    margin-bottom: 0.6rem;
+  }
+  .nse-card.bajo .nse-tag { background: var(--nse-bajo); color: white; }
+  .nse-card.alto .nse-tag { background: var(--nse-alto); color: white; }
+  .nse-card h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+  .nse-card p { font-size: 0.92rem; margin-bottom: 0; }
+
+  /* Topic grid */
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .topic-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.75rem;
+  }
+  .topic-card .topic-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    color: var(--red);
+    font-weight: 400;
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .topic-card h4 {
+    margin-bottom: 0.75rem;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.15rem;
+  }
+  .topic-card p {
+    font-size: 0.92rem;
+    color: var(--ink-body);
+    margin-bottom: 0.5rem;
+  }
+  .topic-card ul {
+    list-style: none;
+    padding: 0;
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+  }
+  .topic-card ul li {
+    padding: 0.3rem 0 0.3rem 1rem;
+    color: var(--ink-body);
+    position: relative;
+  }
+  .topic-card ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.65rem;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--ink-muted);
+  }
+
+  /* Quote grid */
+  .quote-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .quote-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--red);
+    border-radius: 8px;
+    padding: 1.4rem 1.6rem;
+  }
+  .quote-card.nse-bajo { border-left-color: var(--nse-bajo); }
+  .quote-card.nse-alto { border-left-color: var(--nse-alto); }
+  .quote-card blockquote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .quote-card cite {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    margin-top: 0.75rem;
+    display: block;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* Comparative blind test table */
+  .blind-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .blind-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.6rem 1.5rem;
+  }
+  .blind-card .blind-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+  .blind-card .blind-tag {
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-muted);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .blind-card.malportada .blind-name { color: var(--red); }
+  .blind-card .pros, .blind-card .cons {
+    margin-top: 0.85rem;
+    font-size: 0.88rem;
+  }
+  .blind-card .pros strong, .blind-card .cons strong {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+  .blind-card ul { list-style: none; padding: 0; }
+  .blind-card ul li {
+    padding: 0.25rem 0 0.25rem 1.1rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .blind-card ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.65rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+  .blind-card .pros ul li::before { background: #5a8a4f; }
+  .blind-card .cons ul li::before { background: #a04040; }
+
+  /* Two col compare */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  /* Reveal grid */
+  .reveal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .reveal-card {
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid var(--line);
+  }
+  .reveal-card.before {
+    background: var(--bg-warm);
+  }
+  .reveal-card.after {
+    background: linear-gradient(155deg, var(--red-bg) 0%, var(--red-soft) 100%);
+    border-color: var(--red-soft);
+  }
+  .reveal-card h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+  .reveal-card .reveal-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .reveal-card.after .reveal-tag { color: var(--red-deep); }
+  .reveal-card ul { list-style: none; }
+  .reveal-card ul li {
+    padding: 0.4rem 0 0.4rem 1.2rem;
+    position: relative;
+    font-size: 0.92rem;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+  .reveal-card ul li:last-child { border-bottom: none; }
+  .reveal-card ul li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--ink-muted);
+    font-weight: 700;
+  }
+  .reveal-card.after ul li::before { color: var(--red); }
+
+  /* Stimulus block */
+  .stim-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    align-items: start;
+  }
+  .stim-img {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+  .stim-grid.three { grid-template-columns: repeat(3, 1fr); }
+
+  /* Senses block */
+  .senses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .sense-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.4rem;
+  }
+  .sense-card .sense-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  .sense-card h5 {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .sense-card p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-body);
+    margin: 0;
+  }
+
+  /* Price block */
+  .price-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .price-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.6rem 1.75rem;
+  }
+  .price-card .price-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .price-card h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+  .price-card .price-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2.5rem;
+    color: var(--red);
+    font-weight: 400;
+    line-height: 1;
+    margin: 0.5rem 0;
+    display: block;
+  }
+  .price-card p { font-size: 0.9rem; margin: 0; color: var(--ink-body); }
+
+  /* Flavors */
+  .flavors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .flavor {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .flavor .flavor-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    margin: 0 auto 0.6rem;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+  .flavor h5 {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+  .flavor .flavor-rank {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .flavor p { font-size: 0.82rem; line-height: 1.45; margin: 0; color: var(--ink-body); }
+
+  /* SWOT */
+  .swot {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .swot-cell {
+    border-radius: 14px;
+    padding: 1.75rem;
+    border: 1px solid var(--line);
+  }
+  .swot-cell.f { background: #ecf3e8; border-color: #c8d8bd; }
+  .swot-cell.o { background: var(--red-bg); border-color: var(--red-soft); }
+  .swot-cell.d { background: #faeacb; border-color: #e6cb8a; }
+  .swot-cell.a { background: #f5e3e3; border-color: #d9b4b4; }
+  .swot-cell h3 {
+    font-family: 'Fraunces', serif;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+  .swot-cell.f h3 { color: #486a3c; }
+  .swot-cell.o h3 { color: var(--red-deep); }
+  .swot-cell.d h3 { color: #936a18; }
+  .swot-cell.a h3 { color: #8a3838; }
+  .swot-cell ol {
+    padding-left: 1.25rem;
+    font-size: 0.92rem;
+  }
+  .swot-cell ol li {
+    padding: 0.45rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+  .swot-cell ol li:last-child { border-bottom: none; }
+
+  /* Reco list */
+  .reco-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .reco {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .reco-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: var(--red);
+    line-height: 1;
+  }
+  .reco h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+  .reco p { font-size: 0.95rem; margin-bottom: 0; }
+
+  /* Callout */
+  .callout {
+    border-left: 4px solid var(--red);
+    background: var(--red-bg);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+  }
+  .callout strong { color: var(--ink); }
+
+  /* Hallazgos numerados */
+  .hallazgos {
+    counter-reset: hcount;
+    margin-top: 2.5rem;
+  }
+  .hallazgo {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .hallazgo:first-child { border-top: none; padding-top: 0; }
+  .hallazgo .h-num {
+    font-family: 'Fraunces', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--red);
+    line-height: 1;
+  }
+  .hallazgo h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .hallazgo p { font-size: 0.98rem; margin-bottom: 0.6rem; }
+
+  /* Footer */
+  footer {
+    background: var(--bg-dark);
+    color: rgba(255,255,255,0.72);
+    padding: 4rem 0 2rem;
+    margin-top: 4rem;
+  }
+  footer .container { max-width: 1200px; }
+  footer h4 {
+    color: white;
+    margin-bottom: 1rem;
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+  footer .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  footer p { font-size: 0.88rem; line-height: 1.6; margin-bottom: 0.75rem; }
+  footer ul { list-style: none; font-size: 0.88rem; }
+  footer ul li { padding: 0.25rem 0; }
+  footer .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 2rem;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  footer a { color: rgba(255,255,255,0.85); }
+
+  @media (max-width: 880px) {
+    section { padding: 3rem 0; }
+    h1 { font-size: clamp(1.85rem, 7vw, 2.5rem); }
+    .nse-row, .reveal-grid, .blind-grid, .swot, .stim-grid, .stim-grid.three, .price-block, .two-col {
+      grid-template-columns: 1fr;
+    }
+    .topnav ul { display: none; }
+    footer .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .reco { grid-template-columns: 40px 1fr; gap: 1rem; }
+    .reco-num { font-size: 2rem; }
+    .hallazgo { grid-template-columns: 50px 1fr; gap: 1rem; }
+    .hallazgo .h-num { font-size: 2.25rem; }
+  }
+
+  @media print {
+    .topnav { display: none; }
+    section { padding: 2rem 0; page-break-inside: avoid; }
+    .hero { padding: 2rem 0; }
+    body { background: white; }
+    .card, .topic-card, .reco, .blind-card, .nse-card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="nav-brand">
+      Sangría <strong>Malportada</strong>
+      <small>Estudio Cualitativo · SL Consultores</small>
+    </div>
+    <ul>
+      <li><a href="#objetivo">Objetivo</a></li>
+      <li><a href="#metodologia">Metodología</a></li>
+      <li><a href="#contexto">Contexto</a></li>
+      <li><a href="#lectura">Lectura general</a></li>
+      <li><a href="#marca">Marca</a></li>
+      <li><a href="#organolepticas">Producto</a></li>
+      <li><a href="#envase">Envase</a></li>
+      <li><a href="#estimulos">Estímulos</a></li>
+      <li><a href="#precio">Precio</a></li>
+      <li><a href="#sabores">Sabores</a></li>
+      <li><a href="#latas">Latas</a></li>
+      <li><a href="#sintesis">Síntesis</a></li>
+      <li><a href="#hallazgos">Hallazgos</a></li>
+      <li><a href="#foda">FODA</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <span class="eyebrow">Sangría Malportada</span>
+    <h1>Estudio <span class="accent">Cualitativo.</span></h1>
+    <p class="lead" style="max-width: 60ch; font-size: 1.2rem; margin-top: 0.5rem;">Sesiones de grupo con consumidoras de sangría en Panamá. Prueba de producto, lectura de marca y reacción a la línea de sabores y latas.</p>
+    <dl class="hero-meta">
+      <div><dt>Fecha</dt><dd>Mayo 2026</dd></div>
+      <div><dt>Realización</dt><dd>SL Consultores</dd></div>
+      <div><dt>Sesiones</dt><dd>4 focus groups</dd></div>
+      <div><dt>Segmentación</dt><dd>NSE medio · medio bajo / medio · medio alto</dd></div>
+      <div><dt>Comparables</dt><dd>Clos · Peñasol</dd></div>
+    </dl>
+  </div>
+</header>
+
+<section id="objetivo">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Objetivo</span>
+      <h2>Para qué se hizo este estudio.</h2>
+    </div>
+    <div class="container-narrow" style="padding: 0;">
+      <p style="font-size: 1.08rem; max-width: 70ch;">Comprender cómo la consumidora panameña de sangría recibe a Malportada. No solo la marca, también el líquido. No solo en góndola, también en uso. La pregunta de fondo: si la marca llega a Panamá tal como está hoy, ¿qué pasa? ¿Qué entra limpio, qué genera fricción y qué hay que ajustar antes de poner el producto en mesa?</p>
+      <p style="font-size: 1.08rem; max-width: 70ch;">El estudio cubre hábitos de consumo, prueba ciega frente a Clos y Peñasol, prueba develada con marca, lectura de concepto e identidad gráfica, evaluación de la línea de sabores en botella, reacción a las latas con y sin gas, y rango de precio percibido. Cierra con hallazgos, síntesis estratégica y FODA.</p>
+    </div>
+  </div>
+</section>
+
+<section id="metodologia">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Cómo se hizo</span>
+      <h2>Cómo se hizo el estudio.</h2>
+      <p>Las sesiones combinaron prueba de producto a ciegas, prueba develada con marca, lectura de concepto y de piezas visuales, y degustación de la línea de sabores y latas. Las dos primeras sesiones agruparon a consumidoras de NSE medio y medio bajo, las dos últimas a NSE medio y medio alto. La segmentación es relevante porque las opiniones divergen, sobre todo en envase y precio.</p>
+    </div>
+    <div class="meth-grid">
+      <div class="meth-card">
+        <span class="meth-num">01</span>
+        <h5>Prueba ciega</h5>
+        <p>Cada sesión arrancó con una cata a ciegas de tres sangrías servidas sin marca: Clos, Peñasol y Malportada. Se evaluaron sabor, color, aroma, cuerpo, balance y dulzor antes de cualquier estímulo de marca.</p>
+      </div>
+      <div class="meth-card">
+        <span class="meth-num">02</span>
+        <h5>Prueba develada</h5>
+        <p>Una vez identificadas las marcas, se exploró la reacción al envase, etiqueta, color del líquido en contexto y la coherencia entre la promesa visual y lo que se sintió en boca.</p>
+      </div>
+      <div class="meth-card">
+        <span class="meth-num">03</span>
+        <h5>Concepto y piezas</h5>
+        <p>Se mostraron extractos del manual corporativo (universo de marca, personalidad, frases) y piezas tipo afiche exterior y feed de Instagram. Se midió identificación, claridad y resonancia.</p>
+      </div>
+      <div class="meth-card">
+        <span class="meth-num">04</span>
+        <h5>Línea y latas</h5>
+        <p>Se presentó la línea de cinco sabores en botella plástica de 1 L (tinta, manzana verde, naranja-melocotón, lichi-rosado, fresa) y, en los grupos en los que aplicó, las latas con y sin gas.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 4rem;">Quiénes participaron</h3>
+    <div class="nse-row">
+      <div class="nse-card bajo">
+        <span class="nse-tag">Focus 1 y 2</span>
+        <h4>NSE medio · medio bajo</h4>
+        <p>Consumidoras frecuentes de sangría. Compran principalmente en supermercados de barrio y bodegas chinas. Conviven con marcas como Peñasol, Clos y Don Simón. La sangría aparece en casa, playa, parking, reuniones de chicas y eventos familiares.</p>
+      </div>
+      <div class="nse-card alto">
+        <span class="nse-tag">Focus 3 y 4</span>
+        <h4>NSE medio · medio alto</h4>
+        <p>Consumidoras que combinan compra en Riba Smith y Felipe Motta con consumo en restaurante. Toman sangría como acompañamiento de comida o reuniones, también vino y cócteles tipo margarita, mojito y Aperol. Mayor sensibilidad al envase y a la coherencia de marca.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Nota relevante.</strong> Las consumidoras en cada NSE coincidieron mucho en la reacción al concepto de marca y la promesa, pero divergieron de manera marcada en envase, percepción del color del líquido, precio sostenible y disposición a llevar la sangría tinta. Las latas y la línea de sabores son el gran punto de encuentro entre los dos segmentos.
+    </div>
+  </div>
+</section>
+
+<section id="contexto" style="background: var(--bg-warm);">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Contexto · Hábitos de compra y consumo</span>
+      <h2>Cuándo, cómo, dónde y por qué tomar sangría.</h2>
+      <p>La sangría no aparece sola. Aparece dentro de un repertorio que comparte con vino, mojito, margarita, Aperol, cerveza y las bebidas preparadas en lata. La sangría tiene un lugar muy específico en la vida de la consumidora panameña, y entender ese lugar explica buena parte del veredicto sobre Malportada.</p>
+    </div>
+
+    <h3 style="margin-top: 1rem;">Cuándo aparece</h3>
+    <div class="topic-grid">
+      <div class="topic-card">
+        <span class="topic-num">01</span>
+        <h4>Reuniones con amigas</h4>
+        <p>Es la ocasión madre. La sangría hace clic con noche de chicas, conversación larga, ponerse al día, pijamada, cumpleaños y despedidas de soltera.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">02</span>
+        <h4>Pre antes de salir</h4>
+        <p>Antes de ir a la discoteca o a un evento, la sangría aparece como puente. Te activa, te pone "social", entras en ambiente sin perder el hilo de la conversación.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">03</span>
+        <h4>Comida en casa o restaurante</h4>
+        <p>Acompaña carne roja, pasta, comida de mar. En restaurante es la primera opción cuando la oferta lo permite, sobre todo en los grupos altos.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">04</span>
+        <h4>Playa, piscina, parking</h4>
+        <p>Ocasión más recurrente en los grupos bajos. En playa pesa la practicidad del envase plástico y la cantidad. En parking, accesible y para compartir.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">05</span>
+        <h4>Eventos familiares</h4>
+        <p>Domingo, Navidad, Año Nuevo. La sangría se asocia con la tradición de Carolina y Caroreña en consumidoras de origen venezolano, mayoritarias en el estudio.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">06</span>
+        <h4>After office y desconexión</h4>
+        <p>"Cuando llego a mi casa que no puedo dormir". La sangría también funciona como ritual personal de relajo, a veces individual, casi terapéutico.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 4rem;">Por qué sangría y no otra cosa</h3>
+    <div class="quote-grid">
+      <div class="quote-card">
+        <blockquote>"La sangría tiene algo especial, te pone social. Es para compartir, algo casual, para conversar y no perder el hilo de la conversación."</blockquote>
+        <cite>Sobre por qué eligen sangría</cite>
+      </div>
+      <div class="quote-card">
+        <blockquote>"Yo busco cosas dulces. Si voy a una boda, dije: espero que haya margarita o trago de los novios. No quiero algo que tengo que tragar."</blockquote>
+        <cite>El lugar dulce en el repertorio</cite>
+      </div>
+      <div class="quote-card">
+        <blockquote>"Yo tomo sangría porque sufro migraña y la sangría no me produce migraña. El dulzor al día siguiente no me da nada."</blockquote>
+        <cite>Razón funcional poco visible</cite>
+      </div>
+      <div class="quote-card">
+        <blockquote>"Esa sangría yo la buscaría en un momento en que quiero reunirme y no quiero tomar algo tan fuerte, pero igual quiero como que pegue."</blockquote>
+        <cite>El balance buscado</cite>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 4rem;">Lo que le hacen a la sangría en casa</h3>
+    <p style="max-width: 70ch;">La sangría comprada hecha rara vez se toma tal cual. Es un punto de partida que la consumidora interviene en casa según el momento. Esto es especialmente cierto en NSE medio bajo, pero también aparece en el medio alto.</p>
+    <div class="topic-grid">
+      <div class="topic-card">
+        <span class="topic-num">+</span>
+        <h4>Frutas frescas</h4>
+        <p>Manzana, naranja en rodajas, fresa. Es la intervención más universal y la que reafirma el ritual de sangría.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">+</span>
+        <h4>Más alcohol</h4>
+        <p>Vodka, ron Abuelo, cualquier licor neutro o un Clos extra para cargarla cuando se siente baja de licor.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">+</span>
+        <h4>Diluyente refrescante</h4>
+        <p>Sprite, soda, jugo de naranja para "rendirla" cuando hay mucha gente o para suavizar una sangría que viene muy dulce.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">+</span>
+        <h4>Especias</h4>
+        <p>Canela en raja sobre todo, mencionada como la marca de "la sangría hecha en casa" frente al producto industrial.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 4rem;">Con qué comparte el espacio de consumo</h3>
+    <div class="senses-grid">
+      <div class="sense-card">
+        <span class="sense-tag">Comparte ocasión</span>
+        <h5>Vino</h5>
+        <p>El sustituto más cercano para la consumidora que busca el lado señorial. La sangría es leída como "vino más friendly".</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Comparte ocasión</span>
+        <h5>Margarita y mojito</h5>
+        <p>Cócteles preparados en restaurante. Ambos comparten la búsqueda de algo dulce, frutal y refrescante.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Comparte ocasión</span>
+        <h5>Aperol</h5>
+        <p>Aparece en NSE alto como alternativa con perfil ligeramente más sofisticado que la sangría.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Comparte ocasión</span>
+        <h5>Cerveza artesanal</h5>
+        <p>Ocasión cruzada en NSE alto, sobre todo cuando se quiere algo fuerte y de sabor pronunciado.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Comparte ocasión</span>
+        <h5>Ready-to-drink</h5>
+        <p>Smirnoff, Cocktail Hour, vinos preparados, "bolas". Aparecen como referente cuando la sangría se aleja del perfil tradicional.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Comparte ocasión</span>
+        <h5>Vino preparado tipo Harvey</h5>
+        <p>Mencionado puntualmente como vinito de baja graduación, listo para tomar. Vecino directo del territorio Malportada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="lectura">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Lectura general · Prueba de producto</span>
+      <h2>A ciegas, Malportada se aleja del marco mental de sangría.</h2>
+      <p>La cata se hizo sin información de marca. Las tres muestras se sirvieron por orden y se evaluaron en sabor, aroma, color, cuerpo, balance y dulzor. El veredicto a ciegas no es uniforme entre sesiones, pero sí lo es el patrón. Malportada se distancia del marco mental "sangría tradicional" antes incluso de que aparezca la marca.</p>
+    </div>
+
+    <div class="blind-grid">
+      <div class="blind-card">
+        <span class="blind-tag">Muestra · Clos</span>
+        <span class="blind-name">Clos</span>
+        <p style="font-size: 0.92rem;">Reconocida por la mayoría como "la confiable". Es la que ganó en sabor en varios grupos altos y la favorita o segunda en muchos casos. Predomina el sabor a vino, percibido como balance entre dulzor y alcohol.</p>
+        <div class="pros">
+          <strong>Lo que jugó a favor</strong>
+          <ul>
+            <li>Sabor a vino claro y reconocible</li>
+            <li>Color que cumple la expectativa de sangría</li>
+            <li>Buen balance dulzor / alcohol</li>
+            <li>Se siente como "sangría real", no como mezclador</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <strong>Lo que jugó en contra</strong>
+          <ul>
+            <li>Cajeta percibida como menos atractiva en estantería</li>
+            <li>Imagen leída como tradicional o "antigua"</li>
+            <li>Cuerpo demasiado denso para algunas paladar</li>
+          </ul>
+        </div>
+      </div>
+      <div class="blind-card">
+        <span class="blind-tag">Muestra · Peñasol</span>
+        <span class="blind-name">Peñasol</span>
+        <p style="font-size: 0.92rem;">La favorita en NSE medio bajo. La asocian con balance, dulzor agradable, "fácil de seguir tomando". El envase de vidrio refuerza la percepción de calidad.</p>
+        <div class="pros">
+          <strong>Lo que jugó a favor</strong>
+          <ul>
+            <li>Balance entre dulce, ácido y licor</li>
+            <li>Buen aroma</li>
+            <li>Envase de vidrio percibido como más estético</li>
+            <li>Marca conocida y validada</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <strong>Lo que jugó en contra</strong>
+          <ul>
+            <li>Para algunas, demasiado dulce sostenido</li>
+            <li>Botella pesada y frágil para playa</li>
+          </ul>
+        </div>
+      </div>
+      <div class="blind-card malportada">
+        <span class="blind-tag">Muestra · Malportada</span>
+        <span class="blind-name">Malportada</span>
+        <p style="font-size: 0.92rem;">A ciegas se identificó como la "rara", la que no calza con la categoría. Se describe como "jugo", "bebida lista para tomar", "Hawaiian Punch", "jarabe". Un grupo la prefirió por novedosa; la mayoría la sintió poco sangría.</p>
+        <div class="pros">
+          <strong>Lo que jugó a favor</strong>
+          <ul>
+            <li>Suavidad y refrescancia</li>
+            <li>"No empalaga", se puede seguir tomando</li>
+            <li>Propuesta percibida como diferente, novedosa</li>
+            <li>Para algunas, sabor frutal coqueto y de aproximación</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <strong>Lo que jugó en contra</strong>
+          <ul>
+            <li>Color demasiado claro, "transparente"</li>
+            <li>Se siente más jugo que sangría</li>
+            <li>Acidez al inicio que algunas no esperaban</li>
+            <li>Falta cuerpo y sabor a vino</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>El choque mental.</strong> En la cata a ciegas, antes de ver cualquier etiqueta, las consumidoras ya estaban detectando que la tercera muestra (Malportada) no encajaba con su marco de referencia de sangría. Esa distancia es lo que después se va a tensar contra una marca que sí apunta a romper el molde, pero con un envase y una etiqueta que dice "sangría" claramente.
+    </div>
+
+    <h3 style="margin-top: 4rem;">Cómo cambió la lectura entre la cata ciega y la develada</h3>
+    <div class="reveal-grid">
+      <div class="reveal-card before">
+        <span class="reveal-tag">A ciegas</span>
+        <h4>Lo que se sintió antes de ver la marca</h4>
+        <ul>
+          <li>"Esto no es sangría, sabe a jugo de piña con vodka"</li>
+          <li>"Parece un Hawaiian Punch o un 20-20"</li>
+          <li>"Jarabe de dextrometrofán"</li>
+          <li>"Smirnoff de maracuyá, lista para tomar en lata"</li>
+          <li>"Le falta color, le falta cuerpo, le falta vino"</li>
+          <li>"No empalaga, eso sí, se sigue tomando"</li>
+        </ul>
+      </div>
+      <div class="reveal-card after">
+        <span class="reveal-tag">Develada como Malportada</span>
+        <h4>Lo que cambió cuando apareció la marca</h4>
+        <ul>
+          <li>"Mal portada, eso me cautiva, me da curiosidad"</li>
+          <li>"Yo le tomo foto y la mando al grupo: esta es la próxima"</li>
+          <li>"El nombre te dice fuerte, pero el sabor no acompaña"</li>
+          <li>"Me parece que la imagen no coincide con el sabor"</li>
+          <li>"La compraría una vez por curiosidad y por la etiqueta"</li>
+          <li>"Si quitan la palabra sangría se resuelve buena parte"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quote-grid" style="margin-top: 3rem;">
+      <div class="quote-card nse-bajo">
+        <blockquote>"Las tres comparten algo en común: la imagen no coincide con el sabor. Mientras una te cautiva, el sabor te deja a un lado. La otra es muy buena en sabor pero la cajeta no llama. Y esta tiene el empaque mejor pero el sabor decepciona."</blockquote>
+        <cite>NSE medio bajo · post develación</cite>
+      </div>
+      <div class="quote-card nse-alto">
+        <blockquote>"Yo no la confío. Vino en una botella de plástico, para mí no debe saber bien. Aunque después la pruebe y esté rica, si la veo en el súper paso de largo."</blockquote>
+        <cite>NSE medio alto · primera lectura del envase</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="marca" style="background: var(--bg-warm);">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Percepción de la marca</span>
+      <h2>El nombre y la actitud enganchan, el sabor no acompaña.</h2>
+      <p>El universo de Malportada (nombre, frase, manifiesto, identidad gráfica) hace clic con la consumidora panameña. La fricción aparece en la traducción de esa promesa al producto que está en el vaso.</p>
+    </div>
+
+    <h3 style="margin-top: 1rem;">Lo que transmite el nombre</h3>
+    <div class="senses-grid">
+      <div class="sense-card">
+        <span class="sense-tag">Asociación</span>
+        <h5>Curiosidad y juego</h5>
+        <p>"Esta es la de hoy", "se la mando al grupo". Provoca foto, comentario, comparte rápido en chat de amigas.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Asociación</span>
+        <h5>Rebeldía femenina</h5>
+        <p>Locura, desenfreno, salir de la rutina, "ya no soy buena, soy mala". Resonancia con vivir reglas propias.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Asociación</span>
+        <h5>Noche de chicas</h5>
+        <p>Despecho, música, llanto y baile, conversaciones largas. Ocasión femenina, pocas veces mixta.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Asociación</span>
+        <h5>Promesa de fuerza</h5>
+        <p>"Mal portada" pone expectativa de algo cargado, fuerte. Por eso el producto suave decepciona, no entrega lo que el nombre pide.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Asociación</span>
+        <h5>Despedida de soltera</h5>
+        <p>NSE alto la coloca con claridad en pijamada, juegos de despedida, eventos donde "portarse mal" es parte del libreto.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Asociación</span>
+        <h5>Memoria venezolana</h5>
+        <p>Para varias consumidoras de origen venezolano, el nombre evoca a Caroreña y Carolina, sangrías de la infancia y de las mesas familiares.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 4rem;">Identificación con la mujer Malportada</h3>
+    <div class="two-col">
+      <div class="card">
+        <span class="eyebrow" style="background: transparent; padding-left: 0;">Lo que sí resuena</span>
+        <h4 style="margin-top: 0.5rem;">"La amiga que te anima a salirte de la rutina"</h4>
+        <p>El manifiesto y la frase "Pórtate mal sin pedir permiso" se leen como aspiracionales y reconocibles. Las consumidoras se ven como la amiga, no necesariamente como la modelo.</p>
+        <ul class="card-list">
+          <li>"Todas tenemos una amiga así, y si no la tienes, eres tú"</li>
+          <li>"Me siento parte de eso, sí me llama, sí soy esa mujer"</li>
+          <li>"El mensaje de empoderamiento sí me hace clic"</li>
+          <li>"Llama la atención, se identifica, color ardiente"</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="eyebrow" style="background: transparent; padding-left: 0; color: var(--ink-muted);">Las tensiones</span>
+        <h4 style="margin-top: 0.5rem;">La sexualidad de la campaña divide al NSE alto</h4>
+        <p>En NSE medio alto aparece el tema de la sexualidad de algunas piezas. La lectura es que la marca puede leerse como atrevida en una vía que no resuena con todas. Para varias, falta volumen en el lado del empoderamiento y sobra en el lado del cuerpo expuesto.</p>
+        <ul class="card-list">
+          <li>"La primera imagen la veo muy sexista, muy atrevida"</li>
+          <li>"Las publicidades con cuerpo y teta yo las asocio con cerveza, no con sangría femenina"</li>
+          <li>"Yo me identificaría más con algo un poco más recatado, con la chica del carro"</li>
+          <li>"La descripción me gusta más con la imagen de las tres chicas que con la primera"</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 4rem;">A quién le habla la marca, según ellas</h3>
+    <div class="quote-grid">
+      <div class="quote-card nse-bajo">
+        <blockquote>"Es una vibra distinta a las otras dos. Estas dan vibra señorial, decente. Esta da una vibra más juvenil, jocosa, cercana, la de mis amigas y yo."</blockquote>
+        <cite>NSE medio bajo · sobre la diferenciación</cite>
+      </div>
+      <div class="quote-card nse-alto">
+        <blockquote>"Eso lo comprarían niñas entre 17 y 25. Antes de salir a la discoteca, despedida de soltera, pijamada. Yo lo compraría también, pero más como evento, no como costumbre."</blockquote>
+        <cite>NSE medio alto · sobre el público al que le habla la marca</cite>
+      </div>
+      <div class="quote-card">
+        <blockquote>"Si me la pones una botella de tequila te la creo. Como sangría, el nombre y el envase me hacen ruido. Sangría es otra cosa en mi cabeza."</blockquote>
+        <cite>Tensión categoría vs marca</cite>
+      </div>
+      <div class="quote-card">
+        <blockquote>"Sangría Mal portada. Voy a desenfrenarme hoy. Hoy voy a portarme mal, hoy en día. Si está, llega de paseo y vamos a verla."</blockquote>
+        <cite>Cuando la promesa funciona limpia</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="organolepticas">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Cualidades organolépticas</span>
+      <h2>Color claro, cuerpo bajo y aroma poco presente.</h2>
+      <p>Más allá del orden de preferencia, importa entender qué dimensiones del líquido pesan en el veredicto y cómo se distribuyen los reclamos.</p>
+    </div>
+
+    <div class="senses-grid">
+      <div class="sense-card">
+        <span class="sense-tag">Sabor</span>
+        <h5>Suave y refrescante</h5>
+        <p>El descriptor más repetido. "No empalaga", "se sigue tomando", "ligera". Es virtud y problema a la vez, refresca pero no entrega cuerpo de vino.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Sabor</span>
+        <h5>Acidez al inicio</h5>
+        <p>Sobre todo en una de las muestras catadas en focus 2 y 3, varias percibieron una nota cítrica y ácida que arranca alta y luego baja.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Olor</span>
+        <h5>Aroma poco presente</h5>
+        <p>"No tenía olor", "como añejado raro". El aroma es uno de los puntos donde Malportada queda corta frente a Clos y Peñasol.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Color</span>
+        <h5>Demasiado claro</h5>
+        <p>El reclamo más universal. La sangría tinta de Malportada se percibe pálida, transparente, "como soda", "como jarabe diluido". El hielo agrava el problema.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Cuerpo</span>
+        <h5>Aguada, ligera</h5>
+        <p>Cuerpo bajo. Aparecen comparaciones con jugo, con sirope diluido, con bebida lista para tomar. Tampoco pega como vino base de sangría.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Alcohol</span>
+        <h5>Diez bien percibido</h5>
+        <p>El 10% se acepta una vez explicado. Algunas lo sintieron alto con efecto tardío, otras no lo percibieron. Conviven los dos veredictos.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Hipótesis a explorar.</strong> En las sesiones se discutió si el líquido pudiera tener vino blanco como base, lo que explicaría parte del color claro. Si esa fuera la fórmula, vale la pena evaluar comunicarlo de manera explícita en etiqueta, porque hoy la consumidora asume vino tinto y queda con la sensación de "esto no parece sangría" cuando lo que ve es algo más cercano a un vino preparado de base blanca.
+    </div>
+  </div>
+</section>
+
+<section id="envase" style="background: var(--bg-warm);">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Evaluación del envase</span>
+      <h2>El envase divide a las consumidoras según su NSE.</h2>
+      <p>Y donde NSE bajo y NSE alto difieren con más claridad. La etiqueta gusta. La forma de la botella divide. El plástico es la fricción mayor en el segmento alto.</p>
+    </div>
+
+    <div class="reveal-grid">
+      <div class="reveal-card before">
+        <span class="reveal-tag">NSE medio · medio bajo</span>
+        <h4>El plástico no es problema</h4>
+        <ul>
+          <li>"El plástico me gusta, es práctico, lo metes a la cartera"</li>
+          <li>"La pongo en el freezer y listo, va para la playa"</li>
+          <li>"Si se cae el vidrio, ahí termina la noche, hasta ahí llegamos"</li>
+          <li>"En carnavales no puedes meter vidrio, esta sí entra"</li>
+          <li>"La etiqueta me encanta, los besos, los cachitos"</li>
+          <li>"Es el tamaño justo, una y media litros, da para grupo"</li>
+        </ul>
+      </div>
+      <div class="reveal-card after" style="background: linear-gradient(155deg, #ecf3e8 0%, #d6e6cf 100%); border-color: #c8d8bd;">
+        <span class="reveal-tag" style="color: #486a3c;">NSE medio · medio alto</span>
+        <h4>El plástico baja la categoría</h4>
+        <ul>
+          <li>"Eso te costó 2.99 en El 99, parece sirope de raspado"</li>
+          <li>"Vino en plástico, para mí no debe saber bien"</li>
+          <li>"Si me pones esa misma etiqueta en vidrio, te la compro con los ojos cerrados"</li>
+          <li>"La forma de la botella parece de tequila, no de sangría"</li>
+          <li>"Arriba parece soda, abajo parece sirope, no me da confianza"</li>
+          <li>"En vidrio pagaría hasta 25 dólares, en plástico no más de 10"</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 4rem;">Lo que sí funciona del envase en ambos NSE</h3>
+    <div class="topic-grid">
+      <div class="topic-card">
+        <span class="topic-num">✓</span>
+        <h4>La etiqueta llama la atención</h4>
+        <p>Tipografía, los besos, los cachitos, el rojo profundo. Visualmente es lo más juvenil de la categoría.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">✓</span>
+        <h4>El nombre sobresale en estantería</h4>
+        <p>Funciona como gancho de góndola. La consumidora la levanta para inspeccionarla, aunque después decida no llevarla.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">✓</span>
+        <h4>La cantidad es competitiva</h4>
+        <p>1,5 litros se valora como rinde. Compite directamente con Peñasol en cantidad, no tanto con Clos.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">✓</span>
+        <h4>Factor portabilidad</h4>
+        <p>Para playa, piscina y eventos al aire libre, el plástico se vuelve ventaja en NSE medio bajo.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 4rem;">Lo que no funciona en ambos NSE</h3>
+    <div class="topic-grid">
+      <div class="topic-card">
+        <span class="topic-num">×</span>
+        <h4>La palabra "sangría" se pierde</h4>
+        <p>"Mal portada" gana tanta atención visual que la categoría no se lee. Varias consumidoras dudaron si era sangría, mezclador o bebida lista para tomar.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">×</span>
+        <h4>Líquido transparente en estantería</h4>
+        <p>Verlo desde fuera muestra el color claro del producto, lo que detona la duda antes de la compra.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">×</span>
+        <h4>Forma vinculada a tequila</h4>
+        <p>Especialmente en NSE alto, la silueta evoca botellas de destilado, no de sangría.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">×</span>
+        <h4>Tapa roja única en toda la línea</h4>
+        <p>Quien probó la línea sugirió diferenciar tapas por sabor, así la lectura del SKU se simplifica en góndola.</p>
+      </div>
+    </div>
+
+    <div class="quote-grid" style="margin-top: 3rem;">
+      <div class="quote-card nse-bajo">
+        <blockquote>"Yo no tengo problema con el plástico. Me gusta porque uno la metes en la cartera, te vas a la playa y nadie se preocupa por que se quiebre."</blockquote>
+        <cite>NSE medio bajo · sobre el plástico</cite>
+      </div>
+      <div class="quote-card nse-alto">
+        <blockquote>"Si la ven en vidrio yo paso por Lolita, mi sangría conocida, y pago hasta 16. En plástico me hace ruido y agarro la roja, que es keep it safe."</blockquote>
+        <cite>NSE medio alto · sobre vidrio vs plástico</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="estimulos">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Reacción a estímulos visuales</span>
+      <h2>La identidad gráfica gusta, los reclamos van sobre tono.</h2>
+      <p>Se mostraron extractos del manual corporativo y piezas tipo afiche exterior y feed de Instagram. La consumidora panameña reconoce el universo y se identifica con la propuesta. Los ajustes pedidos no son sobre forma, son sobre matiz y localización.</p>
+    </div>
+
+    <div class="stim-grid three">
+      <img src="img/portate-mal.png" alt="Pieza Pórtate mal sin pedir permiso" class="stim-img">
+      <img src="img/personalidad.png" alt="Personalidad de la marca" class="stim-img">
+      <img src="img/universo-marca.png" alt="Universo de marca" class="stim-img">
+    </div>
+
+    <h3 style="margin-top: 4rem;">Lo que pasó frente a cada pieza</h3>
+    <div class="topic-grid">
+      <div class="topic-card">
+        <span class="topic-num">A</span>
+        <h4>"Pórtate mal sin pedir permiso"</h4>
+        <p>La frase más universalmente aceptada. Clara, accionable, "yo no pido permiso". Funciona en NSE bajo y alto.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">B</span>
+        <h4>Universo de marca</h4>
+        <p>La imagen de tres mujeres con las botellas se lee como empoderamiento más limpio. NSE alto la prefiere claramente sobre las piezas más sexualizadas.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">C</span>
+        <h4>Manifiesto</h4>
+        <p>"La amiga que siempre tiene el comentario ingenioso" hace clic transversal. La consumidora se identifica con la amiga, no con la modelo.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">D</span>
+        <h4>Personalidad</h4>
+        <p>Los labios rojos con el collar Malportada son los que más recuerdan en post-test. La iconografía boca + cachitos funciona como sello visual.</p>
+      </div>
+    </div>
+
+    <div class="stim-grid" style="margin-top: 3rem;">
+      <div>
+        <img src="img/billboard-besos-metro.png" alt="Cáete a besos en el metro" class="stim-img">
+      </div>
+      <div>
+        <img src="img/billboard-tus-momentos.png" alt="Tus momentos tus reglas" class="stim-img">
+      </div>
+    </div>
+
+    <h3 style="margin-top: 3rem;">Sobre las frases puntuales de campaña</h3>
+    <div class="senses-grid">
+      <div class="sense-card">
+        <span class="sense-tag">Frase</span>
+        <h5>"Cáete a besos en el metro"</h5>
+        <p>Funciona la idea, pero la palabra "metro" desorienta. En NSE medio alto leen "vagón del metro" como referencia europea. Vale la pena adaptar al lenguaje panameño.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Frase</span>
+        <h5>"Tus momentos, tus reglas"</h5>
+        <p>Universal y limpio. Se entiende, se siente femenino y empoderado. Aceptación alta sin caveats.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Frase</span>
+        <h5>"Quédate pegadito en la cama"</h5>
+        <p>Con los labios y la copa boca abajo se siente sensual sin cruzar a indecente. Aceptación alta.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Frase</span>
+        <h5>"El tamaño no importa para hacer maldades"</h5>
+        <p>Funciona como pieza de los SKUs pequeños. Algunas leen el doble sentido, no resta.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Frase</span>
+        <h5>"Esta botella viene con advertencia"</h5>
+        <p>Genera curiosidad. Conviene cuidar que no se mezcle con regulación legal o señalética obligatoria.</p>
+      </div>
+      <div class="sense-card">
+        <span class="sense-tag">Frase</span>
+        <h5>"Nos portamos mal y lo hacemos bien"</h5>
+        <p>El doble sentido divide. NSE bajo lo lee como guiño cómplice. NSE alto pide aclarar a qué se refiere "lo hacemos bien" para que no cierre la lectura.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Sobre el tono de la campaña.</strong> El comentario más recurrente en NSE medio alto. La campaña se lee "muy España", "muy dark", muy nocturna. Para Panamá, la sugerencia es suavizar el tono nocturno con piezas de día, sol, playa, piscina, sin perder la rebeldía. La idea es que conviva el lado nocturno con un lado más mediterráneo y caribeño, que es el que conecta con las ocasiones panameñas reales.
+    </div>
+  </div>
+</section>
+
+<section id="precio" style="background: var(--bg-warm);">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Precio percibido</span>
+      <h2>Lo que están dispuestas a pagar.</h2>
+      <p>El rango de precio percibido depende del envase mucho más que del líquido. Cuando vieron las opciones de presentación final, los rangos se reabrieron al alza.</p>
+    </div>
+
+    <div class="price-block">
+      <div class="price-card">
+        <span class="price-tag">NSE medio · medio bajo</span>
+        <h4>Botella plástica 1,5 L tinta</h4>
+        <span class="price-num">USD 7 – 10</span>
+        <p>Rango promedio. Algunas mencionaron 8.99 con impuestos como tope cómodo, otras hasta 12 viendo solo la presentación. Tras probar, varias bajaron a 5 dólares (precio comparable a Peñasol y Clos).</p>
+      </div>
+      <div class="price-card">
+        <span class="price-tag">NSE medio · medio alto</span>
+        <h4>Botella plástica vs vidrio</h4>
+        <span class="price-num">USD 8 – 25</span>
+        <p>En plástico no pasarían de 10. En vidrio, comparada mentalmente con Lolita, llegan a 16. Una consumidora habló de hasta 25 si la presentación de vidrio fuera muy cuidada.</p>
+      </div>
+      <div class="price-card">
+        <span class="price-tag">Latas individuales</span>
+        <h4>Lata 200 – 355 ml</h4>
+        <span class="price-num">USD 1.65 – 4</span>
+        <p>El rango sugerido fluctuó alrededor de USD 2.50 por lata. Comparable a cerveza artesanal individual. En lugares premium llega a 4 dólares; en súper esperan menos de 2.</p>
+      </div>
+      <div class="price-card">
+        <span class="price-tag">Botella plástica de sabores</span>
+        <h4>Línea de sabores 1 L</h4>
+        <span class="price-num">USD 7 – 12</span>
+        <p>Rango similar a la tinta, pero con menos resistencia al material. Ver los colores activa otro pliego mental ("ya no estoy viendo sangría tradicional, estoy viendo línea") y el plástico se acepta mejor.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>El hallazgo de precio más relevante.</strong> Cuando la consumidora ve a Malportada como sangría tinta, la compara con Peñasol y Clos (USD 3 a 5) y ahí cualquier cosa por encima de 8 ya genera resistencia. Cuando la ve como línea de sabores frutales y latas, deja de compararla con sangría y la compara con bebidas listas para tomar (Smirnoff, Daniela), donde el rango es más alto. La estrategia de precio depende mucho de qué versión del producto entra primero al mercado.
+    </div>
+  </div>
+</section>
+
+<section id="sabores">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Línea de sabores en botella</span>
+      <h2>Los sabores cambian la conversación a favor de la marca.</h2>
+      <p>Cuando se sacaron las cinco botellas de sabores, las consumidoras dejaron de compararla con sangría tradicional y empezaron a evaluarla como propuesta nueva. La conversión fue casi unánime, sobre todo en los grupos altos. Frase literal de una participante: "Si se querían convencer de la marca, lo lograron."</p>
+    </div>
+
+    <div class="stim-grid">
+      <img src="img/sabores-botellas.png" alt="Línea de cinco sabores Malportada" class="stim-img" style="grid-column: span 2;">
+    </div>
+
+    <h3 style="margin-top: 3rem;">Lo que pasa cuando ven los sabores</h3>
+    <ul class="card-list" style="margin-top: 1rem; max-width: 780px;">
+      <li>El "choque sangría tradicional" se relaja. Pasan a leer cada SKU como variante propia, no como desviación.</li>
+      <li>La transparencia y el color claro dejan de ser problema porque ahora hay contexto: "claro, son frutales, está bien que se vean así".</li>
+      <li>El plástico baja en importancia incluso en NSE alto: "ya no me molesta, va con la propuesta".</li>
+      <li>Aparece la lectura de paquete dúo o surtido de sabores para playa, piscina, parking. La línea se siente más compartible que la tinta sola.</li>
+      <li>Se abre la posibilidad de raspados, shots de gelatina y aplicaciones de evento (carnaval, cumpleaños).</li>
+    </ul>
+
+    <h3 style="margin-top: 4rem;">Orden de preferencia entre los sabores probados</h3>
+    <div class="flavors-grid">
+      <div class="flavor">
+        <div class="flavor-dot" style="background: #d96a6e;"></div>
+        <span class="flavor-rank">Top 1</span>
+        <h5>Maracuyá</h5>
+        <p>Ganador transversal en NSE bajo y alto. La reacción fue "esa va a vender solita". Aroma reconocible, balance ácido-dulce que la consumidora ya tiene mapeado en otros cócteles.</p>
+      </div>
+      <div class="flavor">
+        <div class="flavor-dot" style="background: #f3a36c;"></div>
+        <span class="flavor-rank">Top 2</span>
+        <h5>Melocotón / Durazno</h5>
+        <p>Muy bien recibido. "En la playa al mediodía con hielito" es la imagen recurrente. Refrescante, fácil de tomar, genera repetición.</p>
+      </div>
+      <div class="flavor">
+        <div class="flavor-dot" style="background: #b0d27c;"></div>
+        <span class="flavor-rank">Top 3</span>
+        <h5>Manzana verde</h5>
+        <p>Asociada por algunas con "sabor a chicle" o a Pisco Sour-Smirnoff. Funciona en NSE bajo, divide en NSE alto.</p>
+      </div>
+      <div class="flavor">
+        <div class="flavor-dot" style="background: #e9b5c1;"></div>
+        <span class="flavor-rank">Top 3</span>
+        <h5>Lichi / Rosado</h5>
+        <p>Sabor menos universal. Necesita ayuda de comunicación: "hay que decir que es lichi, mucha gente no lo conoce". Quien lo prueba con expectativa correcta lo aprueba.</p>
+      </div>
+      <div class="flavor">
+        <div class="flavor-dot" style="background: #ffd56b;"></div>
+        <span class="flavor-rank">Difícil</span>
+        <h5>Naranja-mandarina</h5>
+        <p>El sabor más confuso. Algunas leyeron mandarina, otras toronja, otras "araciata". Difícil de identificar sin etiqueta clara, lo que conspira contra la repetición.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Recomendación de etiquetado.</strong> Casi todas las consumidoras pidieron explícitamente que el sabor aparezca legible en la botella. La línea actual es muy linda visualmente pero el sabor no se identifica desde la góndola, y eso castiga sobre todo a los SKU menos universales (lichi, naranja-melocotón).
+    </div>
+  </div>
+</section>
+
+<section id="latas" style="background: var(--bg-warm);">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Reacción a la lata</span>
+      <h2>La lata es el formato que la marca ya estaba pidiendo.</h2>
+      <p>Las latas con y sin gas se mostraron solo en algunas sesiones. La reacción fue muy positiva, con dos lecturas relevantes: la lata es el formato natural para el público joven que la marca está peleando, y la lata gasificada queda mejor en algunos sabores que en otros.</p>
+    </div>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <span class="topic-num">01</span>
+        <h4>El formato que se esperaba</h4>
+        <p>Es el formato que la identidad de marca ya estaba pidiendo. La lata sostiene mejor el universo de bebida lista para tomar moderna que la botella plástica.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">02</span>
+        <h4>Convive con cerveza artesanal y bebidas listas para tomar</h4>
+        <p>Comparable mentalmente a Smirnoff Ice, Daniela, las "boss balls" venezolanas. Se acepta el precio premium en ese marco.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">03</span>
+        <h4>Con o sin gas, depende del sabor</h4>
+        <p>La rosado lichi gasificada gusta más que la rosado lichi normal. La tinta gasificada divide: para algunas, "sabe a soda", pierde el carácter sangría.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">04</span>
+        <h4>Ocasiones que abre la lata</h4>
+        <p>Playa pública (donde se prohíbe vidrio), piscina, parking de cooler, eventos al aire libre, conciertos. Es el SKU "afuera de casa" más natural.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">05</span>
+        <h4>El término "operada" no se entiende</h4>
+        <p>La lata gasificada usa el descriptor "operada". En Panamá no se entiende: la palabra es venezolana. Hay que traducir a "preñada", "sabor", "con gas" o nombre propio por sabor.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-num">06</span>
+        <h4>Imprimir el sabor en lata</h4>
+        <p>Mismo reclamo que en botella: el nombre del sabor debe verse desde la góndola. Sobre todo en lichi y maracuyá, donde la asociación al color no resuelve por sí sola.</p>
+      </div>
+    </div>
+
+    <div class="quote-grid" style="margin-top: 3rem;">
+      <div class="quote-card nse-alto">
+        <blockquote>"Tienen que empezar con la lata. Ya después que esté posicionado tiran la botella enorme. La lata es el rostro joven que esta marca quiere mostrar."</blockquote>
+        <cite>NSE medio alto · sobre estrategia de entrada</cite>
+      </div>
+      <div class="quote-card">
+        <blockquote>"La rosadita gasificada sabe mejor que la normalita. La tinta gasificada me sabe más a soda. Hay que decidir cuál sabor pide gas y cuál no."</blockquote>
+        <cite>Sobre la decisión gas / no gas</cite>
+      </div>
+      <div class="quote-card nse-bajo">
+        <blockquote>"En la playa pública, en el parking, donde no puedes meter vidrio, ahí sí entra la lata. Eso es lo que mi grupo va a comprar."</blockquote>
+        <cite>NSE medio bajo · ocasiones lata</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sintesis">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Síntesis estratégica · Recomendaciones para Panamá</span>
+      <h2>Lo que ellas mismas recomendaron para Panamá.</h2>
+      <p>Las recomendaciones surgieron espontáneamente al final de cada sesión. Hay coincidencias muy claras entre los cuatro grupos, aunque NSE alto y bajo enfatizan cosas distintas. Lo que sigue es la lectura ordenada de esa conversación.</p>
+    </div>
+
+    <div class="reco-list">
+      <div class="reco">
+        <span class="reco-num">01</span>
+        <div>
+          <h4>Entrar por sabores y latas, no por la tinta sola</h4>
+          <p>El consenso más fuerte. La sangría tinta hereda el problema de la categoría: la consumidora la compara con Clos y Peñasol y ahí Malportada queda en deuda. La línea de sabores y la lata abren un territorio nuevo donde Malportada juega sin competir con los códigos clásicos. Si la tinta entra primero, arriesga romper la primera prueba.</p>
+        </div>
+      </div>
+      <div class="reco">
+        <span class="reco-num">02</span>
+        <div>
+          <h4>Resolver el envase tinta antes de relanzarla</h4>
+          <p>Las dos opciones que las consumidoras pusieron sobre la mesa: o se trabaja una versión vidrio para canal restaurante y NSE alto, o se opaca la botella plástica para que el color claro no sea lo primero que se vea en góndola. Ambas son válidas. Ninguna deja la botella tal cual está hoy.</p>
+        </div>
+      </div>
+      <div class="reco">
+        <span class="reco-num">03</span>
+        <div>
+          <h4>Ajustar la fórmula tinta hacia más cuerpo y más vino</h4>
+          <p>El reclamo se repite en los cuatro grupos. No piden subir alcohol (10% se acepta). Piden que se sienta el vino, que el color sea más profundo y que el cuerpo permita aguantar el hielo. Es la diferencia entre "esto es jugo con alcohol" y "esto es sangría que se porta mal".</p>
+        </div>
+      </div>
+      <div class="reco">
+        <span class="reco-num">04</span>
+        <div>
+          <h4>Hacer legible el sabor en cada SKU</h4>
+          <p>El nombre del sabor debe leerse desde la góndola, sobre todo en los menos universales (lichi, maracuyá, melocotón). La consumidora panameña no asume sabor a partir del color. Sin etiqueta clara, Top 1 (maracuyá) corre riesgo de ser confundido con piña, naranja o limón.</p>
+        </div>
+      </div>
+      <div class="reco">
+        <span class="reco-num">05</span>
+        <div>
+          <h4>Adaptar el lenguaje de la campaña al panameño</h4>
+          <p>"Vagón del metro" se lee como referencia europea. "Operada" no se entiende fuera de Venezuela. La identidad gráfica funciona; las palabras necesitan localización. Conviene un pase de copy con criterio panameño en todas las piezas y descriptores.</p>
+        </div>
+      </div>
+      <div class="reco">
+        <span class="reco-num">06</span>
+        <div>
+          <h4>Suavizar el tono dark con un lado caribe</h4>
+          <p>La campaña se lee como nocturna y muy España. Para Panamá conviene sumar piezas de día, sol, playa, piscina, que es donde la sangría realmente vive en el calendario panameño. Sin perder rebeldía: agregando un universo solar al universo nocturno actual.</p>
+        </div>
+      </div>
+      <div class="reco">
+        <span class="reco-num">07</span>
+        <div>
+          <h4>Diferenciar tapas o nombrar cada sabor</h4>
+          <p>La línea actual usa tapa única. Diferenciar por color o por nombre propio (como hacen las cervezas artesanales) facilita la lectura en góndola y construye recordación por SKU.</p>
+        </div>
+      </div>
+      <div class="reco">
+        <span class="reco-num">08</span>
+        <div>
+          <h4>Activación tipo evento en bote, parking, despedida y carnaval</h4>
+          <p>Las ocasiones que ellas mismas mencionaron como naturales para Malportada. Una activación de bote con amigas, una caja para despedida de soltera, presencia en eventos de fin de semana. Más que TV, conviene un plan de presencia en las ocasiones donde la marca ya tiene permiso.</p>
+        </div>
+      </div>
+      <div class="reco">
+        <span class="reco-num">09</span>
+        <div>
+          <h4>Contemplar formatos de lata, botella personal y surtido</h4>
+          <p>La consumidora pidió variedad de tamaños. Tetrapak para playa, lata individual para piscina y parking, botella mediana para reunión en casa, formato variety para descubrir la línea. Una arquitectura de tamaños por canal y ocasión.</p>
+        </div>
+      </div>
+      <div class="reco">
+        <span class="reco-num">10</span>
+        <div>
+          <h4>Aclarar la base si es vino blanco</h4>
+          <p>Si la sangría tinta y los sabores tienen vino blanco como base, conviene comunicarlo. Hoy la consumidora asume vino tinto, ve el color claro y desconfía. Decirlo explícito convierte un rasgo que parece defecto en una propuesta de categoría diferente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="hallazgos" style="background: var(--bg-warm);">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Hallazgos clave</span>
+      <h2>Lo que se llevan las consumidoras y lo que la marca tiene que resolver.</h2>
+      <p>Las cuatro sesiones dejan una conversación ordenable. La marca tiene un activo grande y un problema definido. Ambos están en el mismo punto.</p>
+    </div>
+
+    <div class="hallazgos">
+      <div class="hallazgo">
+        <span class="h-num">01</span>
+        <div>
+          <h3>El nombre y la actitud son el mejor activo de Malportada en Panamá</h3>
+          <p>"Mal portada" provoca, divierte, se comparte en chat de amigas. La identidad gráfica (rojo, labios, tipografía rota, cachitos) tiene la mejor lectura juvenil de la categoría. La consumidora se identifica con "la amiga que se sale de la rutina". Ese activo entra al mercado intacto si la entrega de producto lo respalda.</p>
+        </div>
+      </div>
+      <div class="hallazgo">
+        <span class="h-num">02</span>
+        <div>
+          <h3>La sangría tinta no entrega lo que la marca promete</h3>
+          <p>El líquido se percibe claro, ligero, poco vinoso, más cerca de jugo o bebida lista para tomar que de sangría tradicional. La promesa "Mal portada, fuerte, desenfreno" choca con un producto suave y dulce. La consumidora resuelve la contradicción asumiendo que la marca decepciona, no que es una propuesta diferente.</p>
+        </div>
+      </div>
+      <div class="hallazgo">
+        <span class="h-num">03</span>
+        <div>
+          <h3>La línea de sabores y las latas resuelven el problema</h3>
+          <p>Cuando aparecen los cinco sabores y las latas, la consumidora deja de compararla con Clos y Peñasol y la lee como propuesta nueva. El plástico deja de molestar, el color claro deja de molestar, la promesa de la marca encaja con el producto. Maracuyá y melocotón son los conversores naturales.</p>
+        </div>
+      </div>
+      <div class="hallazgo">
+        <span class="h-num">04</span>
+        <div>
+          <h3>El segmento NSE alto pone reglas más estrictas en envase y precio</h3>
+          <p>Para NSE medio alto, el plástico baja la categoría y limita el techo de precio a USD 10. La opción es entrar a este segmento con vidrio para tinta o con la lata para los sabores, no con la presentación plástica actual.</p>
+        </div>
+      </div>
+      <div class="hallazgo">
+        <span class="h-num">05</span>
+        <div>
+          <h3>La campaña gusta pero pide localización y un giro caribeño</h3>
+          <p>El lenguaje gráfico se aprueba. El tono de las piezas se siente "muy España" y muy nocturno para Panamá. Faltan piezas con sol, playa, piscina y un copy adaptado al panameñismo (sin vagones del metro, sin "operada"). La identidad aguanta esa traducción sin perderse.</p>
+        </div>
+      </div>
+      <div class="hallazgo">
+        <span class="h-num">06</span>
+        <div>
+          <h3>Existe un puente claro con marcas afectivas venezolanas</h3>
+          <p>Caroreña, Carolina y Naitren aparecen como referentes afectivos. Para la diáspora venezolana en Panamá, la marca puede capitalizar esa memoria sin volverla central. Para la consumidora panameña no venezolana, el código funciona como descubrimiento.</p>
+        </div>
+      </div>
+      <div class="hallazgo">
+        <span class="h-num">07</span>
+        <div>
+          <h3>El precio sostenible depende de la versión que entre primero</h3>
+          <p>Si entra la tinta en plástico, el techo es USD 8 a 10. Si entran los sabores y la lata, hay margen para premium en NSE alto. La estrategia comercial es indisociable de la decisión de cuál SKU lidera la entrada al mercado.</p>
+        </div>
+      </div>
+      <div class="hallazgo">
+        <span class="h-num">08</span>
+        <div>
+          <h3>Las ocasiones reales para la marca ya están mapeadas</h3>
+          <p>Despedida de soltera, pijamada, parking, playa, piscina, salida de oficina, cumpleaños, antes de salir, restaurante de comida de mar. La marca no necesita inventar un territorio: lo que necesita es ocupar con presencia donde la consumidora ya la espera.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="foda">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">FODA</span>
+      <h2>Fortalezas, oportunidades, debilidades y amenazas.</h2>
+      <p>Cierre accionable de lo que las cuatro sesiones dejan sobre la mesa.</p>
+    </div>
+
+    <div class="swot">
+      <div class="swot-cell f">
+        <h3>Fortalezas</h3>
+        <ol>
+          <li>Naming con poder de provocación, fotografiable y compartible</li>
+          <li>Identidad gráfica diferenciada y juvenil dentro de la categoría</li>
+          <li>Manifiesto y frases que la consumidora reconoce y se apropia</li>
+          <li>Propuesta de valor rebelde sin equivalente directo en góndola panameña</li>
+          <li>Línea de sabores con dos ganadores claros (maracuyá, melocotón)</li>
+          <li>10% de alcohol bien percibido, ni alto ni bajo</li>
+        </ol>
+      </div>
+      <div class="swot-cell o">
+        <h3>Oportunidades</h3>
+        <ol>
+          <li>Entrar por línea de sabores y latas, abriendo categoría propia fuera del juego de Clos y Peñasol</li>
+          <li>Capitalizar la diáspora venezolana sin volverla discurso central</li>
+          <li>Activaciones en ocasiones ya validadas: despedida, parking, playa, salida de oficina</li>
+          <li>Versión vidrio para canal restaurante y NSE alto, con techo de precio premium</li>
+          <li>Lata como puerta a un público joven (17 a 25) que no consume sangría tradicional</li>
+          <li>Variety pack y formatos que abran descubrimiento de línea</li>
+        </ol>
+      </div>
+      <div class="swot-cell d">
+        <h3>Debilidades</h3>
+        <ol>
+          <li>Líquido tinta percibido como claro, ligero, poco sangría</li>
+          <li>Cuerpo bajo que no aguanta hielo sin perder identidad</li>
+          <li>Aroma menos presente que el de los comparables</li>
+          <li>Botella plástica con forma cercana a tequila, no a sangría</li>
+          <li>Palabra "sangría" poco visible en etiqueta</li>
+          <li>Sabor de cada SKU no se identifica desde la góndola</li>
+          <li>"Operada" y "vagón del metro" no se entienden en Panamá</li>
+        </ol>
+      </div>
+      <div class="swot-cell a">
+        <h3>Amenazas</h3>
+        <ol>
+          <li>Comparación directa con Clos y Peñasol en sangría tinta, donde Malportada queda en desventaja</li>
+          <li>Precio competitivo de Clos y Peñasol (USD 3 a 5) que ancla expectativa baja</li>
+          <li>Riesgo de que primera prueba con la tinta queme la marca antes de que el resto de la línea entre</li>
+          <li>Tono de campaña percibido como sexualizado en NSE alto, con potencial rechazo</li>
+          <li>Saturación de bebidas listas para tomar (Smirnoff, Daniela) compitiendo por el mismo público joven</li>
+          <li>Regulaciones locales sobre vidrio en playa que limitan ocasión natural</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cierre" style="background: var(--bg-dark); padding: 6rem 0; text-align: center;">
+  <div class="container">
+    <h2 style="font-family: 'Fraunces', serif; font-size: clamp(3rem, 8vw, 6rem); color: var(--red); font-weight: 400; line-height: 1; margin: 0;">¡Gracias!</h2>
+    <p style="color: rgba(255,255,255,0.55); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 1.5rem; font-weight: 600;">Estudio Cualitativo Sangría Malportada · Mayo 2026 · SL Consultores</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+      <span>Sangría Malportada · Estudio Cualitativo · SL Consultores · Mayo 2026</span>
+      <span>Documento de uso interno</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
